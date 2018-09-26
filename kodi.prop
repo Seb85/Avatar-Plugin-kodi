@@ -1,0 +1,19 @@
+{
+  "modules": {
+    "kodi": {
+      "description": "Commandes Vocales pour controler votre centre multimédia Kodi",
+      "version": "1.0",
+      "ip_kodi": "192.168.100.32",
+	  "ip_kodi2": "192.168.100.31",
+      "port_kodi": "8080",
+	  "port_kodi2": "80",
+      "rules": {
+		"filmtitre": [ "watch * (film|movie)","see * movie" ],
+		"filmavoir": [ "movy * see","movie * see" ],
+		"stop": [ "stop * movie","stop * series" ],
+		"serietitre": [ "watch * series" ] 
+      }
+     
+    }
+  }
+}
