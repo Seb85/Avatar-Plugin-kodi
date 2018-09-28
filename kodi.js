@@ -102,7 +102,7 @@ var sendJSONRequest = function (url, reqJSON, callback) {
     },
         function (err, response, json) {
             if (err || response.statusCode != 200) {
-                return callback(false);
+				return callback(false);
             }
             callback(json);
         });
@@ -229,11 +229,12 @@ var doPlaylist = function (filter, kodi_api_url, callback, client) {
 var doPlaylistSerie = function (id, kodi_api_url, callback, client) {
     var asyncEpisode = function (l_episode, reponse) {
         if (l_episode) {
-
             if (l_episode.playcount == 0) { return reponse(l_episode); }
+			
             return asyncEpisode(les_episodes.shift(), reponse);
         }
-        else { return reponse(false); }
+        else { 
+			return reponse(false); }
     }
     var syncSaison = function (la_saison, reponse) {
         if (la_saison) {
@@ -247,7 +248,8 @@ var doPlaylistSerie = function (id, kodi_api_url, callback, client) {
                 });
             });
         }
-        else { return reponse(false); }
+        else { 
+			return reponse(false); }
     }
     saison.params.tvshowid = parseInt(id);
     episode.params.tvshowid = parseInt(id);
@@ -308,7 +310,6 @@ var filmtitle = function (kodi_api_url, callback, client, tts) {
                     }
                     else {
                         Avatar.speak("Je n'ai pas trouvé le film. Répète s'il te plait.", client, function () {
-                            end (client);
 							return filmtitle(kodi_api_url, callback, client, ' ');
                         });
                     }
@@ -350,7 +351,6 @@ var serietitle = function (kodi_api_url, callback, client, tts) {
         {
             "*": ""
         }, 0, function (answer, end) {
-            end(client, true);
 
             /* LECTURE D'UNE SERIE SELON (TITRE) */
 
@@ -368,13 +368,11 @@ var serietitle = function (kodi_api_url, callback, client, tts) {
                     if (tvshowid) {
 						Avatar.speak("Bonne série.", client, function () {
 							doPlaylistSerie(tvshowid, kodi_api_url, callback, client);
-                            end(client, true);
 						});
                     }
                     else {
                         Avatar.speak("Je n'ai pas trouvé la série.", client, function () {
-                            Avatar.Speech.end(client);
-							return filmtitle(kodi_api_url, callback, client, ' ');
+							return serietitle(kodi_api_url, callback, client, ' ');
                         });
                     }
 
