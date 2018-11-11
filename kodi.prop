@@ -3,6 +3,7 @@
     "kodi" : {
 		"description": "kodi",
 		"version": "1.0",
+		"active" : true,
 		"clients":{
 			"Séjour":{
 				"filmtitre":"http://IP:PORT/jsonrpc",
