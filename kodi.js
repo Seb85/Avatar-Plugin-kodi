@@ -24,16 +24,14 @@ exports.action = function(data, callback){
 
 
 var setClient = function (data) {
-	
+
 	// client direct (la commande provient du client et est exécutée sur le client)
 	var client = data.client;	
 	// Client spécifique fixe (la commande ne provient pas du client et n'est pas exécutée sur le client et ne peut pas changer)
-	if (data.action.room) 
+	if (data.action.room && data.action.room != 'current' && !Avatar.isMobile(data.client)) 
 		client = (data.action.room != 'current') ? data.action.room : (Avatar.currentRoom) ? Avatar.currentRoom : Config.default.client;
-	// Client spécifique non fixe dans la commande HTTP (la commande ne provient pas du client et n'est pas exécutée sur le client et peut changer)
-	if (data.action.setRoom) 
-		client = data.action.setRoom;
-	
+	if (Avatar.isMobile(data.client))
+			client = Avatar.currentRoom ? Avatar.currentRoom : Config.default.client;
 	return client;
 }
 
